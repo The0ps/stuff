@@ -29,9 +29,7 @@ class all_entry_strategy_long(IStrategy):
     # Minimal ROI designed for the strategy.
     # This attribute will be overridden if the config file contains "minimal_roi".
     minimal_roi = {
-        "60": 10000,
-        "30": 10000,
-        "0": 10000
+        "60": 10000
     }
 
     # Optimal stoploss designed for the strategy.
@@ -44,7 +42,7 @@ class all_entry_strategy_long(IStrategy):
     # trailing_stop_positive = 0.01
     # trailing_stop_positive_offset = 0.0  # Disabled / not configured
     # Number of candles the strategy requires before producing valid signals
-    startup_candle_count: int = 30
+    startup_candle_count: int = 1
 
     def informative_pairs(self):
         return []
@@ -62,7 +60,7 @@ class all_entry_strategy_long(IStrategy):
         """
         dataframe.loc[
             (
-                (dataframe['volume'] > 0)  # Make sure Volume is not 0
+                (dataframe['open'] > 0)  # Make sure Volume is not 0
             ),
             'enter_long'] = 1
         # Uncomment to use shorts (Only used in futures/margin mode. Check the documentation for more info)
