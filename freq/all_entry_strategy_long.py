@@ -42,7 +42,7 @@ class all_entry_strategy_long(IStrategy):
     # trailing_stop_positive = 0.01
     # trailing_stop_positive_offset = 0.0  # Disabled / not configured
     # Number of candles the strategy requires before producing valid signals
-    startup_candle_count: int = 1
+    startup_candle_count: int = 30
 
     def informative_pairs(self):
         return []
@@ -60,9 +60,11 @@ class all_entry_strategy_long(IStrategy):
         """
         dataframe.loc[
             (
-                (dataframe['open'] > 0)  # Make sure Volume is not 0
+                (dataframe['volume'] > 0)  # Make sure Volume is not 0
             ),
             'enter_long'] = 1
+
+        
         # Uncomment to use shorts (Only used in futures/margin mode. Check the documentation for more info)
         # dataframe.loc[
         #     (

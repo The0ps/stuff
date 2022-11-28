@@ -17,7 +17,7 @@ import talib.abstract as ta
 import pandas_ta as pta
 from technical import qtpylib
 
-class macd_strategy_long(IStrategy):
+class macd_strategy(IStrategy):
 
     INTERFACE_VERSION = 3
 
@@ -64,13 +64,13 @@ class macd_strategy_long(IStrategy):
         dataframe.loc[
                 (qtpylib.crossed_above(dataframe['macd'], dataframe['macdsignal'])
             ),
-            'enter_long'] = 1
+            'enter_short'] = 1
         
         
         dataframe.loc[
                 (qtpylib.crossed_below(dataframe['macd'], dataframe['macdsignal'])
             ),
-            'enter_long'] = 1
+            'enter_short'] = 1
         
         # Uncomment to use shorts (Only used in futures/margin mode. Check the documentation for more info)
         # dataframe.loc[
